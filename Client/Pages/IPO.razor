@@ -1,0 +1,34 @@
+@page "/ipo"
+
+<h1>IPO</h1>
+
+<p>Input whatever number you want, I'm not picky </p>
+
+<input @bind="InputString "/>
+
+<button class="btn btn-primary" @onclick="DoProcessing">Do it?</button>
+
+<p>The result of my labor: @OutputString </p>
+<p>Why are you even here? Don't you have better things to do?</p>
+
+@code
+
+{
+
+    private string InputString { get; set; }
+
+    private string OutputString { get; set; }
+
+    private void DoProcessing()
+
+    {
+
+        double num = double.Parse(InputString);
+
+        num = num * 2; 
+
+        OutputString = num.ToString();
+
+    }
+
+}

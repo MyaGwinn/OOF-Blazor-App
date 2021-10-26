@@ -1,0 +1,43 @@
+<!--Razor directive with a relative url of /todo-->
+@page "/todo"      
+
+<!--Header that shows the number of todo items that aren't complete-->
+<h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>      
+
+<ul>
+    <!-- Renders each todo item as a list item -->
+    @foreach (var todo in todos)        
+    {
+        <li>
+            <!-- A checkbox input for item lists and binds its value to the IsDone property -->
+            <input type="checkbox" @bind="todo.IsDone" />
+            <!-- Title page as todo, is editable -->
+            <input @bind="todo.Title" />    
+        </li>
+    }
+</ul>
+
+<!-- Text input for list item, binds newTodo with the bind attribute -->
+<input placeholder="Something todo" @bind="newTodo" />  
+<!-- The button for adding the todo list item calls the AddTodo() method with onclick attribute -->
+<button @onclick="AddTodo">Add todo</button>            
+
+@code {
+    // The field for todo items 
+    private List<TodoItem> todos = new();       
+    // Gets the title of the new todo item
+    private string newTodo;         
+
+    // Method is called when the onclick button is selected
+    private void AddTodo()      
+    {
+        // Adds the list item if it's not blank
+        if (!string.IsNullOrWhiteSpace(newTodo))        
+        {
+            // Adds new item
+            todos.Add(new TodoItem { Title = newTodo });  
+            // Clears the text input and sets newTodo to an empty string
+            newTodo = string.Empty;     
+        }
+    }
+}
